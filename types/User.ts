@@ -1,13 +1,10 @@
 export default interface User {
-    id: string;
-    role: UserRole;
-    firstName: string;
-    lastName: string;
-    email: string;
-}
-
-export enum UserRole {
-    Admin = "ADMIN",
-    Driver = "DRIVER",
-    Commuter = "COMMUTER",
+	id: string;
+	role: "ADMIN" | "DRIVER" | "COMMUTER";
+	firstName: string;
+	lastName: string;
+	email: string;
+	password: string;
+	phoneNumber: string;
+    neighborhoods?: number[]
 }

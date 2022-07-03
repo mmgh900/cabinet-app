@@ -1,4 +1,18 @@
-import { AvatarBadge, Badge, Box, Circle, Heading, Icon, IconButton, Stack, Text } from "@chakra-ui/react";
+import {
+	AvatarBadge,
+	Badge,
+	Box,
+	Button,
+	Center,
+	Circle,
+	Flex,
+	Heading,
+	Icon,
+	IconButton,
+	Stack,
+	Text,
+} from "@chakra-ui/react";
+import Link from "next/link";
 import {
 	FaBars,
 	FaBell,
@@ -8,7 +22,10 @@ import {
 	FaUserCircle,
 	FaWallet,
 } from "react-icons/Fa";
+import { useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
 export default function AppBar() {
+	const user = useAppSelector((state: RootState) => state.user.currentUser);
 	return (
 		<Stack
 			direction={"row"}
@@ -22,29 +39,46 @@ export default function AppBar() {
 				pr: "32px",
 			}}
 		>
-			<Box rounded={"full"} bg={"brand"} w={"50px"} h={"50px"} />
-			<Heading size={"lg"}>CabiNET</Heading>
+			<Link href="/">
+				<a style={{ display: "flex", alignItems: "center" }}>
+					<Box
+						rounded={"full"}
+						marginRight={-27}
+						bg={"brand"}
+						w={"30px"}
+						h={"30px"}
+					/>
+					<Heading fontWeight={"black"} size={"xl"}>
+						Cabinet
+					</Heading>
+				</a>
+			</Link>
+
 			<Box flexGrow={1} />
-			<IconButton
-				className="no-shadow"
-				aria-label="Home"
-				color="gray.300"
-				size={"lg"}
-				w={20}
-				h={20}
-				variant={"ghost"}
-				icon={<Icon w={8} h={8} as={FaBell} />}
-			/>
-			<IconButton
-				className="no-shadow"
-				aria-label="Home"
-				color="gray.300"
-				size={"lg"}
-				w={20}
-				h={20}
-				variant={"ghost"}
-				icon={<Icon w={8} h={8} as={FaUserCircle} />}
-			/>
+			{user ? (
+				<Center>
+					<Box mr={3} textAlign={"right"}>
+						<Text
+							mb={-1}
+							fontWeight="bold"
+							color="gray.400"
+							fontSize={12}
+							textTransform={"uppercase"}
+						>
+							Welcome dear {user.role.toLocaleLowerCase()}
+						</Text>
+						<Text>{user.email}</Text>
+					</Box>
+
+					<Icon color="gray.300" w={10} h={10} as={FaUserCircle} />
+				</Center>
+			) : (
+				<Link href={"/login"}>
+					<Button size="lg" bg="brand" colorScheme={"yellow"}>
+						Login
+					</Button>
+				</Link>
+			)}
 		</Stack>
 	);
 }

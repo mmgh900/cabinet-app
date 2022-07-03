@@ -40,7 +40,7 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
 	reducer: persistedReducer,
-	middleware: [/*logger,*/ thunk, api.middleware, rtkQueryErrorLogger],
+	middleware: [/*logger,*/ thunk, api.middleware],
 });
 
 export default store;

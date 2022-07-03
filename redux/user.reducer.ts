@@ -23,28 +23,26 @@ export const userSlice = createSlice({
 	reducers: {
 		// Use the PayloadAction type to declare the contents of `action.payload`
 		setCurrentUser: (state, action: PayloadAction<string>) => {
-			if (action.payload !== null) {
-				const jwtTokenData = jwt(action.payload) as any;
-				state.token = action.payload;
-				state.currentUser = {
-					email:
-						jwtTokenData[
-							"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
-						],
-					role: jwtTokenData[
-						"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+			const jwtTokenData = jwt(action.payload) as any;
+			state.token = action.payload;
+			state.currentUser = {
+				email:
+					jwtTokenData[
+						"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
 					],
-				} as User;
-			} else {
-				// For logout
-				state.currentUser = null;
-				state.token = null;
-			}
+				role: jwtTokenData[
+					"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+				],
+			} as User;
+		},
+		logout: (state) => {
+			state.currentUser = null;
+			state.token = null;
 		},
 	},
 });
 
-export const { setCurrentUser } = userSlice.actions;
+export const { setCurrentUser, logout } = userSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectUser = (state: RootState) => state.user.currentUser;
