@@ -21,14 +21,15 @@ export default function Layout({ children }: LayoutProps) {
 			<SideMenu />
 			<Box sx={{ w: "100%", h: "100vh", backgroundColor: "#fafafa"}}>
 				<AppBar />
-				<Center
+				<Box
 					sx={{
 						px: "32px",
 						width: "100%",
+						height: '85%'
 					}}
 				>
 					{children}
-				</Center>
+				</Box>
 			</Box>
 		</Flex>
 	);

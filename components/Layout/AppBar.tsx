@@ -23,9 +23,10 @@ export default function AppBar() {
 			}}
 		>
 			<Box rounded={"full"} bg={"brand"} w={"50px"} h={"50px"} />
-            <Heading size={'lg'}>CabiNET</Heading>
+			<Heading size={"lg"}>CabiNET</Heading>
 			<Box flexGrow={1} />
 			<IconButton
+				className="no-shadow"
 				aria-label="Home"
 				color="gray.300"
 				size={"lg"}
@@ -35,6 +36,7 @@ export default function AppBar() {
 				icon={<Icon w={8} h={8} as={FaBell} />}
 			/>
 			<IconButton
+				className="no-shadow"
 				aria-label="Home"
 				color="gray.300"
 				size={"lg"}
