@@ -85,196 +85,181 @@ const Home: NextPage = () => {
 	}
 	return (
 		<Layout>
-			<Grid sx={{ width: "100%", height: "100%" }} templateColumns="2fr 5fr">
-				<GridItem pr={3} overflow={"auto"}>
-					<form onSubmit={handleSubmit}>
-						<Box mb={6} p={4} bg="white" borderRadius={20} boxShadow="md">
-							<Stack spacing={5}>
-								<Box>
-									<Text fontSize={"2xl"} fontWeight="bold">
-										{isSignUp ? "Sign Up" : "Login"}
-									</Text>
-									{isSignUp ? (
-										<Text>
-											Already have a account?{" "}
-											<Button
-												onClick={() => setIsSignUp(false)}
-												variant={"link"}
-											>
-												Login
-											</Button>
-										</Text>
-									) : (
-										<Text>
-											New here?{" "}
-											<Button
-												onClick={() => setIsSignUp(true)}
-												variant={"link"}
-											>
-												Sign Up
-											</Button>
-										</Text>
-									)}
-								</Box>
+			<form onSubmit={handleSubmit}>
+				<Box mb={6} p={4} bg="white" borderRadius={20} boxShadow="md">
+					<Stack spacing={5}>
+						<Box>
+							<Text fontSize={"2xl"} fontWeight="bold">
+								{isSignUp ? "Sign Up" : "Login"}
+							</Text>
+							{isSignUp ? (
+								<Text>
+									Already have a account?{" "}
+									<Button
+										onClick={() => setIsSignUp(false)}
+										variant={"link"}
+									>
+										Login
+									</Button>
+								</Text>
+							) : (
+								<Text>
+									New here?{" "}
+									<Button
+										onClick={() => setIsSignUp(true)}
+										variant={"link"}
+									>
+										Sign Up
+									</Button>
+								</Text>
+							)}
+						</Box>
 
-								<Box as="label" htmlFor="email">
-									<Text mb={1}>Email</Text>
+						<Box as="label" htmlFor="email">
+							<Text mb={1}>Email</Text>
+							<Input
+								required
+								onChange={handleChange}
+								value={form.email}
+								type="email"
+								name="email"
+								id={"email"}
+								placeholder="bernard@example.com"
+								size="md"
+							/>
+						</Box>
+
+						<Box as="label" htmlFor="password">
+							<Text mb={1}>Password</Text>
+							<InputGroup size="md">
+								<Input
+									required
+									value={form.password}
+									onChange={handleChange}
+									id="password"
+									pr="4.5rem"
+									type={showPassword ? "text" : "password"}
+									name="password"
+									placeholder="Password"
+								/>
+								<InputRightElement width="4.5rem">
+									<Button
+										h="1.75rem"
+										size="sm"
+										onClick={handlePasswordShowButtonClick}
+									>
+										{showPassword ? "Hide" : "Show"}
+									</Button>
+								</InputRightElement>
+							</InputGroup>
+						</Box>
+						<Collapse in={isSignUp}>
+							<Stack spacing={5}>
+								<HStack spacing={3}>
+									<Box as="label" htmlFor="firstName">
+										<Text mb={1}>First Name</Text>
+										<Input
+											required={isSignUp}
+											value={form.firstName}
+											onChange={handleChange}
+											type="text"
+											name="firstName"
+											id="firstName"
+											placeholder="Andrew"
+											size="md"
+										/>
+									</Box>
+									<Box as="label" htmlFor="lastName">
+										<Text mb={1}>Last Name</Text>
+										<Input
+											required={isSignUp}
+											value={form.lastName}
+											onChange={handleChange}
+											type="text"
+											name="lastName"
+											id="lastName"
+											placeholder="Bernard"
+											size="md"
+										/>
+									</Box>
+								</HStack>
+								<Box as="label" htmlFor="phoneNumber">
+									<Text mb={1}>Phone Number</Text>
 									<Input
-										required
+										required={isSignUp}
+										value={form.phoneNumber}
 										onChange={handleChange}
-										value={form.email}
-										type="email"
-										name="email"
-										id={"email"}
-										placeholder="bernard@example.com"
+										type="phone"
+										name="phoneNumber"
+										id={"phoneNumber"}
+										placeholder="0900 000 0000"
 										size="md"
 									/>
 								</Box>
 
-								<Box as="label" htmlFor="password">
-									<Text mb={1}>Password</Text>
-									<InputGroup size="md">
-										<Input
-											required
-											value={form.password}
-											onChange={handleChange}
-											id="password"
-											pr="4.5rem"
-											type={showPassword ? "text" : "password"}
-											name="password"
-											placeholder="Password"
-										/>
-										<InputRightElement width="4.5rem">
-											<Button
-												h="1.75rem"
-												size="sm"
-												onClick={handlePasswordShowButtonClick}
-											>
-												{showPassword ? "Hide" : "Show"}
-											</Button>
-										</InputRightElement>
-									</InputGroup>
-								</Box>
-								<Collapse in={isSignUp}>
-									<Stack spacing={5}>
-										<HStack spacing={3}>
-											<Box as="label" htmlFor="firstName">
-												<Text mb={1}>First Name</Text>
-												<Input
-													required={isSignUp}
-													value={form.firstName}
-													onChange={handleChange}
-													type="text"
-													name="firstName"
-													id="firstName"
-													placeholder="Andrew"
-													size="md"
-												/>
-											</Box>
-											<Box as="label" htmlFor="lastName">
-												<Text mb={1}>Last Name</Text>
-												<Input
-													required={isSignUp}
-													value={form.lastName}
-													onChange={handleChange}
-													type="text"
-													name="lastName"
-													id="lastName"
-													placeholder="Bernard"
-													size="md"
-												/>
-											</Box>
-										</HStack>
-										<Box as="label" htmlFor="phoneNumber">
-											<Text mb={1}>Phone Number</Text>
-											<Input
-												required={isSignUp}
-												value={form.phoneNumber}
-												onChange={handleChange}
-												type="phone"
-												name="phoneNumber"
-												id={"phoneNumber"}
-												placeholder="0900 000 0000"
-												size="md"
-											/>
-										</Box>
-
-										<RadioGroup
-											value={form.role}
-											onChange={(nextValue: string) => {
-												setIsDriver(nextValue.toLocaleLowerCase() === "driver");
+								<RadioGroup
+									value={form.role}
+									onChange={(nextValue: string) => {
+										setIsDriver(nextValue.toLocaleLowerCase() === "driver");
+										setForm({
+											...form,
+											role: nextValue.toUpperCase() as
+												| "DRIVER"
+												| "COMMUTER",
+										});
+									}}
+									name="role"
+								>
+									<HStack>
+										<Text mr={4}>I am a </Text>
+										<Radio value="COMMUTER">Commuter</Radio>
+										<Radio value="DRIVER">Driver</Radio>
+									</HStack>
+								</RadioGroup>
+								<Collapse in={isDriver}>
+									<Box>
+										<Text mb={1}>Working Neighborhoods </Text>
+										<select
+											style={{ width: "100%", border: "1px solid grey" }}
+											required={isSignUp && isDriver}
+											multiple
+											onChange={(event) => {
 												setForm({
 													...form,
-													role: nextValue.toUpperCase() as
-														| "DRIVER"
-														| "COMMUTER",
+													neighborhoods: Array.from(
+														event.target.selectedOptions
+													).map((option) => parseInt(option.value)),
 												});
 											}}
-											name="role"
+											name="neighborhoods"
+											id="neighborhoods"
 										>
-											<HStack>
-												<Text mr={4}>I am a </Text>
-												<Radio value="COMMUTER">Commuter</Radio>
-												<Radio value="DRIVER">Driver</Radio>
-											</HStack>
-										</RadioGroup>
-										<Collapse in={isDriver}>
-											<Box>
-												<Text mb={1}>Working Neighborhoods </Text>
-												<select
-													style={{ width: "100%", border: "1px solid grey" }}
-													required={isSignUp && isDriver}
-													multiple
-													onChange={(event) => {
-														setForm({
-															...form,
-															neighborhoods: Array.from(
-																event.target.selectedOptions
-															).map((option) => parseInt(option.value)),
-														});
-													}}
-													name="neighborhoods"
-													id="neighborhoods"
+											{neighborhoods?.map((neighborhood) => (
+												<option
+													key={neighborhood.id}
+													value={neighborhood.id}
 												>
-													{neighborhoods?.map((neighborhood) => (
-														<option
-															key={neighborhood.id}
-															value={neighborhood.id}
-														>
-															{neighborhood.name}
-														</option>
-													))}
-												</select>
-											</Box>
-										</Collapse>
-									</Stack>
+													{neighborhood.name}
+												</option>
+											))}
+										</select>
+									</Box>
 								</Collapse>
-
-								<Button
-									type="submit"
-									size="md"
-									bg="brand"
-									colorScheme={"yellow"}
-									w="100%"
-								>
-									Submit
-								</Button>
 							</Stack>
-						</Box>
-					</form>
-				</GridItem>
-				<GridItem h="100%">
-					<Box
-						h="100%"
-						p={6}
-						borderRadius={"20px"}
-						bg="white"
-						backgroundImage={"/login.png"}
-						backgroundPosition={"center"}
-						backgroundSize={"cover"}
-					></Box>
-				</GridItem>
-			</Grid>
+						</Collapse>
+
+						<Button
+							type="submit"
+							size="md"
+							bg="brand"
+							colorScheme={"yellow"}
+							w="100%"
+						>
+							Submit
+						</Button>
+					</Stack>
+				</Box>
+			</form>
 		</Layout>
 	);
 };

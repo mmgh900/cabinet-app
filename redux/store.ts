@@ -3,7 +3,7 @@ import {
 	configureStore, Middleware,
 	MiddlewareAPI
 } from "@reduxjs/toolkit";
-import { persistReducer } from "redux-persist";
+import {persistReducer, persistStore} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 import { api } from "./api.slice";
@@ -46,7 +46,7 @@ const store = configureStore({
 export default store;
 
 const makeStore = () => store;
-
+export const persistor = persistStore(store);
 export type AppStore = ReturnType<typeof makeStore>;
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

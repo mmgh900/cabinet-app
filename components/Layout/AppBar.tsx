@@ -60,14 +60,14 @@ export default function AppBar() {
 					<Box mr={3} textAlign={"right"}>
 						<Text
 							mb={-1}
-							fontWeight="bold"
+
 							color="gray.400"
 							fontSize={12}
 							textTransform={"uppercase"}
 						>
 							Welcome dear {user.role.toLocaleLowerCase()}
 						</Text>
-						<Text>{user.email}</Text>
+						<Text fontWeight="semibold" fontSize={14}>{user.email}</Text>
 					</Box>
 
 					<Icon color="gray.300" w={10} h={10} as={FaUserCircle} />
