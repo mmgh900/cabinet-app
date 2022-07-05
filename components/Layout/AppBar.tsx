@@ -65,7 +65,7 @@ export default function AppBar() {
 							fontSize={12}
 							textTransform={"uppercase"}
 						>
-							Welcome dear {user.role.toLocaleLowerCase()}
+							Welcome dear {user.role?.toLocaleLowerCase()}
 						</Text>
 						<Text fontWeight="semibold" fontSize={14}>{user.email}</Text>
 					</Box>

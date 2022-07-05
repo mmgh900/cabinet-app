@@ -8,6 +8,7 @@ import {useAppSelector} from "../redux/hooks";
 import {RootState} from "../redux/store";
 import DriverPage from "../components/HomePage/driver-page";
 import CurrentCommute from "../components/HomePage/current-commute";
+import AdminPage from "../components/HomePage/admin-page";
 
 const Home: NextPage = () => {
     const user = useAppSelector((state: RootState) => state.user.currentUser);
@@ -18,9 +19,11 @@ const Home: NextPage = () => {
                 currentCommute ?
                     <CurrentCommute/>
                     :
-                    user?.role.toLowerCase() === "commuter" ?
-                        <CommuterPage/> :
-                        <DriverPage/>
+                    user?.role?.toLowerCase() === "admin" ?
+                        <AdminPage/> :
+                        user?.role?.toLowerCase() === "commuter" ?
+                            <CommuterPage/> :
+                            <DriverPage/>
             }
         </Layout>
     );

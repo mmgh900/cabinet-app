@@ -10,7 +10,7 @@ import {
     Text,
     useEditableControls
 } from "@chakra-ui/react";
-import {FaCar, FaCarrot, FaClock, FaTaxi, FaUserAlt} from "react-icons/fa";
+import {FaCar, FaCarrot, FaClock, FaTaxi, FaUserAlt} from "react-icons/Fa";
 import React, {useState} from "react";
 import {
     useCancelCommuteMutation,
@@ -142,7 +142,7 @@ export default function CommuterPage() {
                                                 sliderValue < 95 ?
                                                     '🤩'
                                                     :
-                                        '😍'
+                                                    '😍'
 
                                 }
 
@@ -228,17 +228,29 @@ export default function CommuterPage() {
                 </Flex>
             }
             {
-                currentCommute.status.toUpperCase() == "IN PROGRESS" && user.role == 'Driver' &&
-                <Button sx={{mt: 5}} onClick={() => {
-                    end({
-                        id: currentCommute?.id,
-                    })
-                        .unwrap()
-                        .catch(error => alert(JSON.stringify(error.data)))
-                }} mt={2} colorScheme="gray" color={'white'} bg={'black'} variant={'solid'}
-                >
-                    End the commute
-                </Button>
+                currentCommute.status.toUpperCase() == "IN PROGRESS" && (user.role == 'Driver' ?
+                        <Button sx={{mt: 5}} onClick={() => {
+                            end({
+                                id: currentCommute?.id,
+                            })
+                                .unwrap()
+                                .catch(error => alert(JSON.stringify(error.data)))
+                        }} mt={2} colorScheme="gray" color={'white'} bg={'black'} variant={'solid'}
+                        >
+                            End the commute
+                        </Button>
+                        :
+                        <Button onClick={() => {
+                            cancel({
+                                id: currentCommute?.id,
+                            })
+                                .unwrap()
+                                .catch(error => alert(JSON.stringify(error.data)))
+                        }} mt={2} colorScheme="red" variant={'outline'}
+                        >
+                            Cancel
+                        </Button>
+                )
             }
 
 

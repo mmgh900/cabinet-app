@@ -73,7 +73,11 @@ const Home: NextPage = () => {
 						router.push("/");
 					})
 					.catch((err) => {
-						alert(err.message);
+						if (err.status == 401) {
+							alert("Wrong Credentials");
+							return
+						}
+						alert(JSON.stringify(err));
 					});
 			} else {
 				alert("Form is incomplete" + JSON.stringify(form));

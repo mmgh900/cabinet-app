@@ -1,13 +1,16 @@
 export default interface Commute {
-    id: number;
-    destination: string;
-    origin: string;
-    commuterName: string;
-    driverName: string
-    price: number;
-    requestTime: string;
-    status: string;
-    score: number;
+	id: number;
+	destination: string;
+	origin: string;
+	commuterName: string;
+	driverEmail: string;
+	commuterEmail: string;
+	driverName: string;
+	price: number;
+	requestTime: string;
+	status: string;
+	score: number;
+	driverScore: number;
 }
 
 export interface CommuteRequest {
